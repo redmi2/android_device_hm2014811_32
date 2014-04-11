@@ -64,8 +64,8 @@ persist.timed.enable=true
 #
 # system prop for opengles version
 #
-# 131072 is decimal for 0x20000 to report version 2
-ro.opengles.version=131072
+# 196608 is decimal for 0x30000 to report version 3
+ro.opengles.version=196608
 
 # System property for cabl
 ro.qualcomm.cabl=0
@@ -114,3 +114,4 @@ ro.sf.lcd_density=480
 persist.debug.wfd.enable=1
 #propery to enable VDS WFD solution
 persist.hwc.enable_vds=1
+ro.min_freq=800000
