@@ -53,6 +53,9 @@ BOARD_KERNEL_PAGESIZE    := 2048
 BOARD_KERNEL_TAGS_OFFSET := 0x01E00000
 BOARD_RAMDISK_OFFSET     := 0x02000000
 
+# Enables Adreno RS driver
+OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
+
 # Shader cache config options
 # Maximum size of the  GLES Shaders that can be cached for reuse.
 # Increase the size if shaders of size greater than 12KB are used.
@@ -102,3 +105,5 @@ TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 
 #Add support for firmare upgrade on 8916
 HAVE_SYNAPTICS_I2C_RMI4_FW_UPGRADE := true
+
+PRODUCT_BOOT_JARS := $(subst $(space),:,$(PRODUCT_BOOT_JARS))
