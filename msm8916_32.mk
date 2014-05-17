@@ -28,6 +28,8 @@ PRODUCT_COPY_FILES += \
     device/qcom/msm8916_32/audio_policy.conf:system/etc/audio_policy.conf \
     device/qcom/msm8916_32/audio_effects.conf:system/vendor/etc/audio_effects.conf \
     device/qcom/msm8916_32/mixer_paths_mtp.xml:system/etc/mixer_paths_mtp.xml \
+    device/qcom/msm8916_32/mixer_paths_qrd_skuh.xml:system/etc/mixer_paths_qrd_skuh.xml \
+    device/qcom/msm8916_32/mixer_paths_qrd_skui.xml:system/etc/mixer_paths_qrd_skui.xml \
     device/qcom/msm8916_32/mixer_paths.xml:system/etc/mixer_paths.xml
 
 # NFC packages
@@ -72,6 +74,9 @@ PRODUCT_BOOT_JARS := core:conscrypt:okhttp:core-junit:bouncycastle:ext:com.andro
 endif # TARGET_USES_QCA_NFC
 
 PRODUCT_BOOT_JARS += qcmediaplayer:WfdCommon:oem-services:qcom.fmradio:org.codeaurora.Performance:vcard
+# Listen configuration file
+PRODUCT_COPY_FILES += \
+    device/qcom/msm8916_32/listen_platform_info.xml:system/etc/listen_platform_info.xml
 
 # Feature definition files for msm8916
 PRODUCT_COPY_FILES += \
