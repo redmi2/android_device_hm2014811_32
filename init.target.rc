@@ -61,10 +61,10 @@ on post-fs-data
     mkdir /tombstones/dsps 0771 system system
 
 #start camera server as daemon
-service qcamerasvr /system/bin/mm-qcamera-daemon
-    class late_start
-    user camera
-    group camera system inet input graphics
+#service qcamerasvr /system/bin/mm-qcamera-daemon
+#    class late_start
+#    user camera
+#    group camera system inet input graphics
 
 # Allow usb charging to be disabled peristently
 on property:persist.usb.chgdisabled=1
