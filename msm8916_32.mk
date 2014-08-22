@@ -31,6 +31,7 @@ PRODUCT_COPY_FILES += \
     device/qcom/msm8916_32/mixer_paths_qrd_skuh.xml:system/etc/mixer_paths_qrd_skuh.xml \
     device/qcom/msm8916_32/mixer_paths_qrd_skui.xml:system/etc/mixer_paths_qrd_skui.xml \
     device/qcom/msm8916_32/mixer_paths_qrd_skuhf.xml:system/etc/mixer_paths_qrd_skuhf.xml \
+    device/qcom/msm8916_32/mixer_paths_qrd_skut1.xml:system/etc/mixer_paths_qrd_skut1.xml \
     device/qcom/msm8916_32/mixer_paths_skuk.xml:system/etc/mixer_paths_skuk.xml \
     device/qcom/msm8916_32/mixer_paths_wcd9306.xml:system/etc/mixer_paths_wcd9306.xml \
     device/qcom/msm8916_32/mixer_paths_wcd9330.xml:system/etc/mixer_paths_wcd9330.xml \
