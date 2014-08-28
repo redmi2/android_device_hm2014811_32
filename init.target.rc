@@ -175,3 +175,8 @@ service ims_rtp_daemon /system/bin/ims_rtp_daemon
 
 on property:sys.ims.DATA_DAEMON_STATUS=1
     start ims_rtp_daemon
+
+service hbtp /system/bin/hbtp_daemon
+   class main
+   user root
+   disabled
