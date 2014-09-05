@@ -1775,7 +1775,7 @@
 
     <path name="listen-handset-mic">
         <ctl name="MADONOFF Switch" value="1" />
-        <ctl name="MAD Input" value="DMIC1" />
+        <ctl name="MAD Input" value="ADC1" />
     </path>
 
     <!-- Added for ADSP testfwk -->
