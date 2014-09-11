@@ -156,3 +156,12 @@ ADDITIONAL_BUILD_PROPERTIES += persist.radio.multisim.config=dsds
 
 rp_pppoe := pppoe
 PRODUCT_PACKAGES += $(rp_pppoe)
+
+#HBTP
+PRODUCT_PACKAGES += hbtp_daemon
+PRODUCT_PACKAGES += libhbtpclient.so
+PRODUCT_PACKAGES += libhbtpfrmwk.so
+PRODUCT_PACKAGES += libhbtparm.so
+PRODUCT_PACKAGES += libafehal.so
+PRODUCT_PACKAGES += hbtp.cfg
+PRODUCT_PACKAGES += hbtpcfg.dat
