@@ -74,7 +74,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_PERSISTIMAGE_FILE_SYSTEM_TYPE := ext4
 
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=30 msm_rtb.filter=0x3F ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci androidboot.selinux=permissive lpm_levels.sleep_disabled=1
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=30 msm_rtb.filter=0x3F ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1
 BOARD_KERNEL_SEPARATED_DT := true
 
 BOARD_EGL_CFG := device/qcom/msm8916_32/egl.cfg
@@ -94,7 +94,6 @@ ADD_RADIO_FILES ?= false
 # Added to indicate that protobuf-c is supported in this build
 PROTOBUF_SUPPORTED := true
 
-TARGET_USE_QCOM_BIONIC_OPTIMIZATION := true
 
 TARGET_USES_ION := true
 TARGET_USES_NEW_ION_API :=true
