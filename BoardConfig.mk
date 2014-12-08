@@ -113,6 +113,3 @@ TARGET_BOARD_SUFFIX := _32
 MALLOC_IMPL := dlmalloc
 
 TARGET_LDPRELOAD := libNimsWrap.so
-
-#Enable HW based full disk encryption
-TARGET_HW_DISK_ENCRYPTION := true
