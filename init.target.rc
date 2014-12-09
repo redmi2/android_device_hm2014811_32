@@ -48,6 +48,7 @@ on fs
 
     wait /dev/block/bootdevice/by-name/persist
     mount ext4 /dev/block/bootdevice/by-name/persist /persist nosuid nodev barrier=1
+    mkdir /persist/data 0700  system system
     restorecon_recursive   /persist
 
     wait /dev/block/bootdevice/by-name/modem
@@ -60,6 +61,8 @@ on post-fs-data
     mkdir /tombstones/lpass 0771 system system
     mkdir /tombstones/wcnss 0771 system system
     mkdir /tombstones/dsps 0771 system system
+    mkdir /persist/data/sfs 0700 system system
+    mkdir /persist/data/tz 0700 system system
 
 #start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
@@ -128,6 +131,7 @@ service audiod /system/bin/audiod
    group system
 
 on boot
+    start rmt_storage
     insmod /system/lib/modules/adsprpc.ko
 
 service ppd /system/bin/mm-pp-daemon
@@ -185,3 +189,9 @@ service ims_rtp_daemon /system/bin/ims_rtp_daemon
 
 on property:sys.ims.DATA_DAEMON_STATUS=1
     start ims_rtp_daemon
+
+service hbtp /system/vendor/bin/hbtp_daemon
+   class main
+   user system
+   group system
+   disabled

@@ -8,6 +8,9 @@ endif
 # Add QC Video Enhancements flag
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
+#QTIC flag
+-include $(QCPATH)/common/config/qtic-config.mk
+
 # media_profiles and media_codecs xmls for 8916
 ifeq ($(TARGET_ENABLE_QC_AV_ENHANCEMENTS), true)
 PRODUCT_COPY_FILES += device/qcom/msm8916_32/media/media_profiles_8916.xml:system/etc/media_profiles.xml \
@@ -15,7 +18,9 @@ PRODUCT_COPY_FILES += device/qcom/msm8916_32/media/media_profiles_8916.xml:syste
 endif
 
 PRODUCT_PROPERTY_OVERRIDES += \
-       dalvik.vm.heapgrowthlimit=128m
+       dalvik.vm.heapgrowthlimit=128m \
+       dalvik.vm.heapminfree=6m \
+       dalvik.vm.heapstartsize=14m
 $(call inherit-product, device/qcom/common/common.mk)
 
 PRODUCT_NAME := msm8916_32
@@ -116,6 +121,7 @@ PRODUCT_COPY_FILES += \
 #wlan driver
 PRODUCT_COPY_FILES += \
     device/qcom/msm8916_32/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
+    device/qcom/msm8916_32/WCNSS_wlan_dictionary.dat:persist/WCNSS_wlan_dictionary.dat \
     device/qcom/msm8916_32/WCNSS_qcom_wlan_nv.bin:persist/WCNSS_qcom_wlan_nv.bin
 
 PRODUCT_PACKAGES += \
@@ -126,3 +132,21 @@ PRODUCT_PACKAGES += \
 AntHalService \
 libantradio \
 antradio_app
+
+#HBTP
+PRODUCT_PACKAGES += hbtp_daemon
+PRODUCT_PACKAGES += libhbtpclient.so
+PRODUCT_PACKAGES += libhbtpfrmwk.so
+PRODUCT_PACKAGES += libhbtparm.so
+PRODUCT_PACKAGES += libafehal_5_rohm_v3.so
+PRODUCT_PACKAGES += hbtp_8939_5_rohm_v3.cfg
+PRODUCT_PACKAGES += hbtpcfg_8939_5_rohm_v3.dat
+PRODUCT_PACKAGES += libafehal_5_rohm_v4.so
+PRODUCT_PACKAGES += hbtp_8939_5_rohm_v4.cfg
+PRODUCT_PACKAGES += hbtpcfg_8939_5_rohm_v4.dat
+PRODUCT_PACKAGES += libafehal_5p5_rohm_v4.so
+PRODUCT_PACKAGES += hbtp_8939_5p5_rohm_v4.cfg
+PRODUCT_PACKAGES += hbtpcfg_8939_5p5_rohm_v4.dat
+PRODUCT_PACKAGES += libafehal_6_rohm_v3.so
+PRODUCT_PACKAGES += hbtp_8939_6_rohm_v3.cfg
+PRODUCT_PACKAGES += hbtpcfg_8939_6_rohm_v3.dat
