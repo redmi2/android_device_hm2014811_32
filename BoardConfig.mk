@@ -108,3 +108,6 @@ TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 HAVE_SYNAPTICS_I2C_RMI4_FW_UPGRADE := true
 
 PRODUCT_BOOT_JARS := $(subst $(space),:,$(PRODUCT_BOOT_JARS))
+
+#add suffix variable to uniquely identify the board
+TARGET_BOARD_SUFFIX := _32
