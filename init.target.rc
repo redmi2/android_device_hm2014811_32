@@ -183,6 +183,11 @@ service imsdatadaemon /system/bin/imsdatadaemon
 on property:sys.ims.QMI_DAEMON_STATUS=1
     start imsdatadaemon
 
+service qmi_sfs_server /system/bin/qmi_sfs_server
+   class core
+   user system
+   group system net_raw
+
 service ims_rtp_daemon /system/bin/ims_rtp_daemon
    class main
    user system
