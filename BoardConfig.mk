@@ -179,6 +179,9 @@ BOARD_HAVE_QCOM_FM := true
 # Control flag between KM versions
 TARGET_HW_KEYMASTER_V03 := true
 
+#Enable peripheral manager
+TARGET_PER_MGR_ENABLED := true
+
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
@@ -197,4 +200,3 @@ TARGET_USES_WCNSS_CTRL := true
 WIFI_DRIVER_FW_PATH_AP := "ap"
 WIFI_DRIVER_FW_PATH_STA := "sta"
 WPA_SUPPLICANT_VERSION := VER_0_8_X
-
