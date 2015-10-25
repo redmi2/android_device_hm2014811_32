@@ -145,9 +145,9 @@ PRODUCT_PACKAGES += libSubSystemShutdown
 PRODUCT_PACKAGES += wcnss_service
 #PRODUCT_PACKAGES += libwcnss_qmi
 
-# MSM IRQ Balancer configuration file
+# Thermal
 PRODUCT_COPY_FILES += \
-    device/wt88047/msm_irqbalance.conf:system/vendor/etc/msm_irqbalance.conf
+    device/wt88047/configs/thermal-engine.conf:system/etc/thermal-engine.conf
 
 #wlan driver
 PRODUCT_COPY_FILES += \
