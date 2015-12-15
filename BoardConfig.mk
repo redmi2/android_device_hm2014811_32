@@ -167,6 +167,9 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/
 # RIL
 FEATURE_QCRIL_UIM_SAP_SERVER_MODE := true
 
+# Control flag between KM versions
+TARGET_HW_KEYMASTER_V03 := true
+
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
