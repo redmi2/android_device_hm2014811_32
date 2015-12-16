@@ -33,22 +33,21 @@ endif
 #----------------------------------------------------------------------
 # Compile Linux Kernel
 #----------------------------------------------------------------------
-ifeq ($(KERNEL_DEFCONFIG),)
-    ifeq ($(TARGET_BUILD_VARIANT),user)
-      KERNEL_DEFCONFIG := msm8916-perf_defconfig
-    else
-      KERNEL_DEFCONFIG := msm8916_defconfig
-    endif
-endif
 
-include kernel/AndroidKernel.mk
+KERNEL_DEFCONFIG := hm2014811_defconfig
+KERNEL_DIR := kernel
 
-$(INSTALLED_KERNEL_TARGET): $(TARGET_PREBUILT_KERNEL) | $(ACP)
-	$(transform-prebuilt-to-target)
+-include $(TOP)/$(KERNEL_DIR)/AndroidKernel.mk
 
-#----------------------------------------------------------------------
+# device.mk doesn't know about us, and we can't PRODUCT_COPY_FILES here.
+# So cp will do.
+.PHONY: $(PRODUCT_OUT)/kernel
+$(PRODUCT_OUT)/kernel: $(TARGET_PREBUILT_KERNEL)
+	cp $(TARGET_PREBUILT_KERNEL) $(PRODUCT_OUT)/kernel
+
+#------------------------------------------------
 # Copy additional target-specific files
-#----------------------------------------------------------------------
+#------------------------------------------------
 include $(CLEAR_VARS)
 LOCAL_MODULE       := vold.fstab
 LOCAL_MODULE_TAGS  := optional eng
@@ -85,38 +84,6 @@ LOCAL_MODULE       := init.qcom.modem_links.sh
 LOCAL_MODULE_TAGS  := optional eng
 LOCAL_MODULE_CLASS := ETC
 LOCAL_SRC_FILES    := $(LOCAL_MODULE)
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE       := gpio-keys.kl
-LOCAL_MODULE_TAGS  := optional eng
-LOCAL_MODULE_CLASS := ETC
-LOCAL_SRC_FILES    := $(LOCAL_MODULE)
-LOCAL_MODULE_PATH  := $(TARGET_OUT_KEYLAYOUT)
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE       := synaptics_rmi4_i2c.kl
-LOCAL_MODULE_TAGS  := optional eng
-LOCAL_MODULE_CLASS := ETC
-LOCAL_SRC_FILES    := $(LOCAL_MODULE)
-LOCAL_MODULE_PATH  := $(TARGET_OUT_KEYLAYOUT)
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE       := synaptics_dsx.kl
-LOCAL_MODULE_TAGS  := optional eng
-LOCAL_MODULE_CLASS := ETC
-LOCAL_SRC_FILES    := $(LOCAL_MODULE)
-LOCAL_MODULE_PATH  := $(TARGET_OUT_KEYLAYOUT)
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE       := ft5x06_ts.kl
-LOCAL_MODULE_TAGS  := optional eng
-LOCAL_MODULE_CLASS := ETC
-LOCAL_SRC_FILES    := $(LOCAL_MODULE)
-LOCAL_MODULE_PATH  := $(TARGET_OUT_KEYLAYOUT)
 include $(BUILD_PREBUILT)
 
 ifeq ($(strip $(BOARD_HAS_QCOM_WLAN)),true)
@@ -160,6 +127,7 @@ LOCAL_MODULE_PATH  := $(TARGET_OUT_ETC)/hostapd
 LOCAL_SRC_FILES    := hostapd.deny
 include $(BUILD_PREBUILT)
 
+#------------------------------------------------
 #Create symbolic links
 $(shell mkdir -p $(TARGET_OUT_ETC)/firmware/wlan/prima; \
         ln -sf /persist/WCNSS_qcom_wlan_nv.bin \
@@ -168,16 +136,6 @@ $(shell mkdir -p $(TARGET_OUT_ETC)/firmware/wlan/prima; \
         $(TARGET_OUT_ETC)/firmware/wlan/prima/WCNSS_wlan_dictionary.dat; \
         ln -sf /data/misc/wifi/WCNSS_qcom_cfg.ini \
         $(TARGET_OUT_ETC)/firmware/wlan/prima/WCNSS_qcom_cfg.ini)
-endif
-
-#----------------------------------------------------------------------
-# Radio image
-#----------------------------------------------------------------------
-ifeq ($(ADD_RADIO_FILES), true)
-radio_dir := $(LOCAL_PATH)/radio
-RADIO_FILES := $(shell cd $(radio_dir) ; ls)
-$(foreach f, $(RADIO_FILES), \
-    $(call add-radio-file,radio/$(f)))
 endif
 
 #----------------------------------------------------------------------
