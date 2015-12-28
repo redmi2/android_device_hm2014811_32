@@ -98,6 +98,10 @@ PRODUCT_PACKAGES += \
     libcalmodule_common \
     sensors.msm8916
     
+# Build libstlport for legacy blobs
+PRODUCT_PACKAGES += \
+    libstlport
+
 # Display
 PRODUCT_PACKAGES += \
     libtinyxml
@@ -108,8 +112,10 @@ PRODUCT_PACKAGES += \
     libantradio \
     antradio_app
 
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    camera2.portability.force_api=1
+# Camera
+PRODUCT_PACKAGES += libmm-qcamera
+#PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+#    camera2.portability.force_api=1
 
 #fstab.qcom
 PRODUCT_PACKAGES += fstab.qcom
