@@ -167,6 +167,11 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/
 # RIL
 FEATURE_QCRIL_UIM_SAP_SERVER_MODE := true
 
+# FM
+#TARGET_QCOM_NO_FM_FIRMWARE := true
+AUDIO_FEATURE_ENABLED_FM_POWER_OPT := true
+BOARD_HAVE_QCOM_FM := true
+
 # Control flag between KM versions
 TARGET_HW_KEYMASTER_V03 := true
 
