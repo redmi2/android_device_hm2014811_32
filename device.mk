@@ -43,6 +43,17 @@ endif
 PRODUCT_BOOT_JARS += \
            qcom.fmradio
 
+# GPS
+PRODUCT_PACKAGES += \
+    gps.msm8916
+    
+PRODUCT_COPY_FILES += \
+    device/hm2014811/configs/flp.conf:system/etc/flp.conf \
+    device/hm2014811/configs/gps.conf:system/etc/gps.conf \
+    device/hm2014811/configs/izat.conf:system/etc/izat.conf \
+    device/hm2014811/configs/quipc.conf:system/etc/quipc.conf \
+    device/hm2014811/configs/sap.conf:system/etc/sap.conf    
+
 PRODUCT_BOOT_JARS += tcmiface
 PRODUCT_BOOT_JARS += qcmediaplayer
 
