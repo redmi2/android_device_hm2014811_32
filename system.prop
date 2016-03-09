@@ -180,7 +180,7 @@ ro.am.reschedule_service=true
 persist.camera.pip.support=0
 
 # Display
-ro.sf.lcd_density=320
+ro.sf.lcd_density=312
 
 #Enable B service adj transition by default
 ro.sys.fw.bservice_enable=true

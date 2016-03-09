@@ -198,7 +198,7 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *boar
     UNUSED(board_type);
 
     rc = property_get("ro.product.name", device);
-    if (!rc || !ISMATCH(device, "2014811"))
+    if (!rc || !ISMATCH(device, "wt88047"))
         return;
 
     import_kernel_cmdline(0, import_kernel_nv);
@@ -210,21 +210,30 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *boar
         property_set("ro.product.device", "HM2014817");
         property_set("ro.product.model", "2014817");
         property_set("ro.product.name", "2014817");
+        property_set("ro.telephony.default_network", "9,1");
+        property_set("telephony.lteOnCdmaDevice", "0");
     } else if (strcmp(board_id, "S88047D1") == 0) {
         property_set("ro.build.product", "HM2014819");
         property_set("ro.product.device", "HM2014819");
         property_set("ro.product.model", "2014819");
         property_set("ro.product.name", "2014819");
+        property_set("ro.telephony.default_network", "9,1");
+        property_set("telephony.lteOnCdmaDevice", "0");
     } else if (strcmp(board_id, "S88047C1") == 0) {
         property_set("ro.build.product", "HM2014818");
         property_set("ro.product.device", "HM2014818");
         property_set("ro.product.model", "2014818");
         property_set("ro.product.name", "2014818");
+        property_set("ro.telephony.default_network", "9,1");
+        property_set("telephony.lteOnCdmaDevice", "0");
+        property_set("persist.dbg.volte_avail_ovr", "1");
+        property_set("persist.dbg.vt_avail_ovr", "1");
     } else if (strcmp(board_id, "S88047B2") == 0) {
         property_set("ro.build.product", "HM2014821");
         property_set("ro.product.device", "HM2014821");
         property_set("ro.product.model", "2014821");
         property_set("ro.product.name", "2014821");
+        property_set("ro.telephony.default_network", "22,1");
         property_set("telephony.lteOnCdmaDevice", "1");
         property_set("persist.radio.sglte.eons_domain", "ps");
     } else if (strcmp(board_id, "S88047B1") == 0) {
@@ -232,19 +241,35 @@ void init_msm_properties(unsigned long msm_id, unsigned long msm_ver, char *boar
         property_set("ro.product.device", "HM2014812");
         property_set("ro.product.model", "2014812");
         property_set("ro.product.name", "2014812");
+        property_set("ro.telephony.default_network", "22,1");
         property_set("telephony.lteOnCdmaDevice", "1");
         property_set("persist.radio.sglte.eons_domain", "ps");
-    } else if (strcmp(board_id, "S86047A1") == 0) {
+    } else if ((strcmp(board_id, "S86047A1") == 0) || (strcmp(board_id, "S86047A1_CD") == 0)) {
         property_set("ro.build.product", "HM2014813");
         property_set("ro.product.device", "HM2014813");
         property_set("ro.product.model", "2014813");
         property_set("ro.product.name", "2014813");
+        property_set("ro.telephony.default_network", "9,1");
+        property_set("telephony.lteOnCdmaDevice", "0");
+    } else if ((strcmp(board_id, "S86047A2") == 0) || (strcmp(board_id, "S86047A2_CD") == 0)) {
+        property_set("ro.build.product", "HM2014112");
+        property_set("ro.product.device", "HM2014112");
+        property_set("ro.product.model", "2014112");
+        property_set("ro.product.name", "2014112");
+        property_set("ro.telephony.default_network", "9,1");
+        property_set("telephony.lteOnCdmaDevice", "0");
     } else { /* including S88047A2 and S88047A1 */
         property_set("ro.build.product", "HM2014811");
         property_set("ro.product.device", "HM2014811");
         property_set("ro.product.model", "2014811");
         property_set("ro.product.name", "2014811");
+        property_set("ro.telephony.default_network", "9,1");
+        property_set("telephony.lteOnCdmaDevice", "0");
     }
+
+    /* Unified description and fingerprint for now */
+    property_set("ro.build.description", "wt88047-user 5.1.1 LMY47V 6.1.28 release-keys");
+    property_set("ro.build.fingerprint", "Xiaomi/wt88047/wt88047:5.1.1/LMY47V/6.1.28:user/release-keys");
 
     ERROR("Setup %s properties done!\n", board_id);
 

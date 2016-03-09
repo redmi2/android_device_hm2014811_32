@@ -1,2 +1,2 @@
 PRODUCT_MAKEFILES := \
-	$(LOCAL_DIR)/caf_hm2014811.mk
+	$(LOCAL_DIR)/caf_wt88047.mk

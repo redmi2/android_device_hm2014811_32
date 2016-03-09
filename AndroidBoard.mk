@@ -34,7 +34,7 @@ endif
 # Compile Linux Kernel
 #----------------------------------------------------------------------
 
-KERNEL_DEFCONFIG := hm2014811_defconfig
+KERNEL_DEFCONFIG := wt88047_defconfig
 KERNEL_DIR := kernel
 
 -include $(TOP)/$(KERNEL_DIR)/AndroidKernel.mk

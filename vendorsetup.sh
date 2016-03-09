@@ -27,4 +27,4 @@
 #  IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-add_lunch_combo caf_hm2014811-userdebug
+add_lunch_combo caf_wt88047-userdebug
