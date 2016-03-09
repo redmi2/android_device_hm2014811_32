@@ -61,6 +61,7 @@ BOARD_RAMDISK_OFFSET     := 0x02000000
 
 TARGET_USES_UNCOMPRESSED_KERNEL := false
 TARGET_KERNEL_APPEND_DTB := false
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := $(PWD)/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm-eabi-
 
 # Enables Adreno RS driver
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
