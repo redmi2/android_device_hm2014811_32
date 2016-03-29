@@ -101,7 +101,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/wt88047/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
     device/wt88047/keylayout/msm8x16-wt88047-snd-card_Button_Jack.kl:system/usr/keylayout/msm8x16-wt88047-snd-card_Button_Jack.kl \
-    device/wt88047/keylayout/synaptics_rmi4_i2c.kl:system/usr/keylayout/synaptics_rmi4_i2c.kl
+    device/wt88047/keylayout/ft5x06_ts.kl:system/usr/keylayout/ft5x06_ts.kl
 
 # Sensors
 PRODUCT_PACKAGES += \
