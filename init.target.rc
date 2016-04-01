@@ -99,8 +99,8 @@ service qrngp /system/bin/qrngp -f
    oneshot
    disabled
 
-on property:sys.boot_completed=1
-   start qrngp
+#on property:sys.boot_completed=1
+#   start qrngp
 
 service qseecomd /system/bin/qseecomd
    class core
