@@ -189,6 +189,9 @@ TARGET_QCOM_NO_FM_FIRMWARE := true
 AUDIO_FEATURE_ENABLED_FM_POWER_OPT := true
 BOARD_HAVE_QCOM_FM := true
 
+# Tap-to-Wake
+TARGET_TAP_TO_WAKE_NODE := "/sys/android_touch/doubletap2wake"
+
 # Control flag between KM versions
 TARGET_HW_KEYMASTER_V03 := true
 
