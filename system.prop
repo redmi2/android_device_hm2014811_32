@@ -196,3 +196,6 @@ ro.core_ctl_max_cpu=4
 
 # Art
 dalvik.vm.dex2oat-flags=--no-watch-dog
+
+#show selinux status
+ro.build.selinux=1
