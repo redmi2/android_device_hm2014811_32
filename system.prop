@@ -181,6 +181,7 @@ persist.camera.pip.support=0
 
 # Display
 ro.sf.lcd_density=312
+persist.sys.lcd_density=312
 
 #Enable B service adj transition by default
 #ro.sys.fw.bservice_enable=true
