@@ -21,9 +21,8 @@ ifeq ($(TARGET_ARCH),)
 TARGET_ARCH := arm
 endif
 
-TARGET_COMPILE_WITH_MSM_KERNEL := true
-TARGET_KERNEL_APPEND_DTB := true
-TARGET_KERNEL_CROSS_COMPILE_PREFIX := $(PWD)/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm-eabi-
+# Assert
+TARGET_OTA_ASSERT_DEVICE := wt88047,WT88047,HM2014811,HM2014812,HM2014813,HM2014814,HM2014815,HM2014816,HM2014817,HM2014818,HM2014819,HM2014820,HM2014821
 
 USE_CLANG_PLATFORM_BUILD := true
 
@@ -31,19 +30,20 @@ BOARD_USES_GENERIC_AUDIO := true
 USE_CAMERA_STUB := true
 TARGET_DISABLE_DASH := true
 
--include $(QCPATH)/common/msm8916_32/BoardConfigVendor.mk
+# inherit from the proprietary version
+-include vendor/xiaomi/wt88047/BoardConfigVendor.mk
+
 TARGET_COMPILE_WITH_MSM_KERNEL := true
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := $(PWD)/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm-eabi-
 #TODO: Fix-me: Setting TARGET_HAVE_HDMI_OUT to false
 # to get rid of compilation error.
 TARGET_HAVE_HDMI_OUT := false
 TARGET_USES_OVERLAY := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
-TARGET_NO_BOOTLOADER := false
+TARGET_NO_BOOTLOADER := true
 TARGET_NO_KERNEL := false
 TARGET_NO_RADIOIMAGE := true
-TARGET_NO_RPC := true
 
-BOOTLOADER_GCC_VERSION := arm-eabi-4.8
 BOOTLOADER_PLATFORM := msm8916# use msm8952 LK configuration
 
 TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
@@ -59,17 +59,23 @@ TARGET_HARDWARE_3D := false
 TARGET_BOARD_PLATFORM := msm8916
 TARGET_BOOTLOADER_BOARD_NAME := msm8916
 
-BOARD_SECCOMP_POLICY := device/qcom/$(TARGET_BOARD_PLATFORM)$(TARGET_BOARD_SUFFIX)/seccomp
+BOARD_SECCOMP_POLICY := device/wt88047/seccomp
 
+BOARD_CUSTOM_BOOTIMG_MK  := device/wt88047/mkbootimg.mk
+BOARD_MKBOOTIMG_ARGS     := --ramdisk_offset 0x02000000 --tags_offset 0x01E00000
+BOARD_DTBTOOL_ARGS       := -2
 BOARD_KERNEL_BASE        := 0x80000000
 BOARD_KERNEL_PAGESIZE    := 2048
 BOARD_KERNEL_TAGS_OFFSET := 0x01E00000
 BOARD_RAMDISK_OFFSET     := 0x02000000
 
 TARGET_USES_UNCOMPRESSED_KERNEL := false
+TARGET_KERNEL_APPEND_DTB := false
 
 # Enables Adreno RS driver
-#OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
+OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
+TARGET_CONTINUOUS_SPLASH_ENABLED := false
+TARGET_USES_C2D_COMPOSITION := true
 
 # Shader cache config options
 # Maximum size of the  GLES Shaders that can be cached for reuse.
@@ -84,29 +90,77 @@ MAX_EGL_CACHE_SIZE := 2048*1024
 # Use signed boot and recovery image
 #TARGET_BOOTIMG_SIGNED := true
 
+# Audio
+#AUDIO_FEATURE_DEEP_BUFFER_RINGTONE := true
+#AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
+AUDIO_FEATURE_ENABLED_KPI_OPTIMIZE := true
+AUDIO_FEATURE_ENABLED_NEW_SAMPLE_RATE := true
+#AUDIO_FEATURE_LOW_LATENCY_PRIMARY := true
+BOARD_USES_ALSA_AUDIO := true
+AUDIO_FEATURE_ENABLED_PM_SUPPORT := false
+AUDIO_FEATURE_ENABLED_SSR := false
+AUDIO_FEATURE_ENABLED_EXTN_RESAMPLER := false
+#BOARD_SUPPORTS_SOUND_TRIGGER := false
+USE_CUSTOM_AUDIO_POLICY := 1
+
+#Camera
+#USE_CAMERA_STUB := true
+BOARD_CAMERA_SENSORS := \
+    ov2680_5987fhq \
+    ov8865_q8v18a \
+    ov2680_skuhf
+USE_DEVICE_SPECIFIC_CAMERA := true
+TARGET_HAS_LEGACY_CAMERA_HAL1 := true
+
+#GPS
+TARGET_NO_RPC := true
+BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
+#BOARD_VENDOR_QCOM_LOC_PDK_FEATURE_SET := true
+#BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 50001
+
+# Recovery
+TARGET_RECOVERY_FSTAB := device/wt88047/fstab.qcom
+
 TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_PERSISTIMAGE_FILE_SYSTEM_TYPE := ext4
 
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 earlyprintk
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 earlyprintk androidboot.selinux=permissive
+BOARD_KERNEL_SEPARATED_DT := true
 
-BOARD_EGL_CFG := device/qcom/msm8916_32/egl.cfg
+BOARD_EGL_CFG := device/wt88047/egl.cfg
 
 BOARD_BOOTIMAGE_PARTITION_SIZE := 0x02000000
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x02000000
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1288491008
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 1860632576
-BOARD_CACHEIMAGE_PARTITION_SIZE := 268435456
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1073741824
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 5939100672
+BOARD_CACHEIMAGE_PARTITION_SIZE := 335544320
 BOARD_PERSISTIMAGE_PARTITION_SIZE := 33554432
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
+
+# Dex
+#ifeq ($(HOST_OS),linux)
+#  ifeq ($(TARGET_BUILD_VARIANT),userdebug)
+#    ifeq ($(WITH_DEXPREOPT),)
+#      WITH_DEXPREOPT := true
+#    endif
+#  endif
+#endif
+#DONT_DEXPREOPT_PREBUILTS := true
 
 
 # Add NON-HLOS files for ota upgrade
 ADD_RADIO_FILES ?= true
 
 # Added to indicate that protobuf-c is supported in this build
-PROTOBUF_SUPPORTED := false
+PROTOBUF_SUPPORTED := true
 
+# Time services
+BOARD_USES_QC_TIME_SERVICES := true
+
+# Flags
+#COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD -DCAMERA_VENDOR_L_COMPAT
 
 TARGET_USES_ION := true
 TARGET_USES_NEW_ION_API :=true
@@ -116,8 +170,9 @@ TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_msm
 TARGET_INIT_VENDOR_LIB := libinit_msm
 TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
 
-#Add support for firmare upgrade on 8916
-HAVE_SYNAPTICS_I2C_RMI4_FW_UPGRADE := true
+# init
+TARGET_LIBINIT_DEFINES_FILE := device/wt88047/init/init_wt88047.cpp
+TARGET_UNIFIED_DEVICE := true
 
 #add suffix variable to uniquely identify the board
 TARGET_BOARD_SUFFIX := _32
@@ -127,11 +182,11 @@ TARGET_BOARD_SUFFIX := _32
 MALLOC_SVELTE := true
 
 #Enable HW based full disk encryption
-TARGET_HW_DISK_ENCRYPTION := true
+#TARGET_HW_DISK_ENCRYPTION := false
 TARGET_CRYPTFS_HW_PATH := device/qcom/common/cryptfs_hw
 
 #Enable SW based full disk encryption
-TARGET_SWV8_DISK_ENCRYPTION := true
+#TARGET_SWV8_DISK_ENCRYPTION := true
 
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 
@@ -140,13 +195,41 @@ MAX_VIRTUAL_DISPLAY_DIMENSION := 2048
 # Enable sensor multi HAL
 #USE_SENSOR_MULTI_HAL := true
 
+# Vold
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
+
+# RIL
 FEATURE_QCRIL_UIM_SAP_SERVER_MODE := true
+
+# FM
+TARGET_QCOM_NO_FM_FIRMWARE := true
+AUDIO_FEATURE_ENABLED_FM_POWER_OPT := true
+BOARD_HAVE_QCOM_FM := true
 
 # Control flag between KM versions
 TARGET_HW_KEYMASTER_V03 := true
 
 #Enable peripheral manager
 TARGET_PER_MGR_ENABLED := true
+
+# Bluetooth
+BOARD_HAVE_BLUETOOTH := true
+BOARD_HAVE_BLUETOOTH_QCOM := true
+BLUETOOTH_HCI_USE_MCT := true
+
+# Wifi
+BOARD_HAS_QCOM_WLAN := true
+BOARD_HAS_QCOM_WLAN_SDK := true
+BOARD_HOSTAPD_DRIVER := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_qcwcn
+BOARD_WLAN_DEVICE := qcwcn
+BOARD_WPA_SUPPLICANT_DRIVER := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
+TARGET_USES_QCOM_WCNSS_QMI := true
+TARGET_USES_WCNSS_CTRL := true
+WIFI_DRIVER_FW_PATH_AP := "ap"
+WIFI_DRIVER_FW_PATH_STA := "sta"
+WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 WITH_DEXPREOPT := false
 ifneq ($(TARGET_BUILD_VARIANT),user)
