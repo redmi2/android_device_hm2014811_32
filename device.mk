@@ -61,7 +61,7 @@ PRODUCT_COPY_FILES += \
     device/wt88047/configs/sap.conf:system/etc/sap.conf    
 
 PRODUCT_BOOT_JARS += tcmiface
-#PRODUCT_BOOT_JARS += qcmediaplayer
+PRODUCT_BOOT_JARS += qcmediaplayer
 
 # QTI extended functionality of android telephony.
 # Required for MSIM manual provisioning and other related features.
@@ -94,6 +94,10 @@ PRODUCT_COPY_FILES += \
 
 # Audio configuration file
 -include $(TOPDIR)hardware/qcom/audio/configs/msm8916_32/msm8916_32.mk
+
+# Audio
+PRODUCT_PACKAGES += \
+    audio.primary.msm8916
 
 # Keylayout
 PRODUCT_COPY_FILES += \
@@ -129,7 +133,7 @@ PRODUCT_PACKAGES += libmm-qcamera
 #fstab.qcom
 PRODUCT_PACKAGES += fstab.qcom
 
--include $(TOPDIR)hardware/qcom/audio/configs/msm8916/msm8916.mk
+#-include $(TOPDIR)hardware/qcom/audio/configs/msm8916/msm8916.mk
 
 PRODUCT_PACKAGES += \
     libqcomvisualizer \
