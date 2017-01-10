@@ -8,7 +8,7 @@ TARGET_USES_NQ_NFC := false
 TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 
 # Enable features in video HAL that can compile only on this platform
-TARGET_USES_MEDIA_EXTENSIONS := true
+#TARGET_USES_MEDIA_EXTENSIONS := true
 
 # World APN list
 PRODUCT_COPY_FILES += \
@@ -126,9 +126,13 @@ PRODUCT_PACKAGES += \
     antradio_app
 
 # Camera
-PRODUCT_PACKAGES += libmm-qcamera
+#PRODUCT_PACKAGES += libmm-qcamera
 #PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 #    camera2.portability.force_api=1
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    media.stagefright.legacyencoder=true \
+    media.stagefright.less-secure=true
 
 #fstab.qcom
 PRODUCT_PACKAGES += fstab.qcom
