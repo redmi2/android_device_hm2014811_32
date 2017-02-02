@@ -56,7 +56,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     device/wt88047/configs/flp.conf:system/etc/flp.conf \
     device/wt88047/configs/gps.conf:system/etc/gps.conf \
-    device/wt88047/configs/izat.conf:system/etc/izat.conf \
     device/wt88047/configs/quipc.conf:system/etc/quipc.conf \
     device/wt88047/configs/sap.conf:system/etc/sap.conf    
 
