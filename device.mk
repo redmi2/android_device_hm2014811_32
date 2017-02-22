@@ -125,7 +125,7 @@ PRODUCT_PACKAGES += \
     antradio_app
 
 # Camera
-#PRODUCT_PACKAGES += libmm-qcamera
+PRODUCT_PACKAGES += libmm-qcamera
 #PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 #    camera2.portability.force_api=1
 
