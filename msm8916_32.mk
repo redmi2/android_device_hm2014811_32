@@ -1,12 +1,17 @@
-DEVICE_PACKAGE_OVERLAYS := device/qcom/msm8916_32/overlay
+TARGET_USES_AOSP_FOR_AUDIO := true
+TARGET_USES_AOSP := true
+TARGET_USES_QCOM_BSP := false
 
-TARGET_USES_QCOM_BSP := true
+TARGET_USES_HWC2 := true
+
+#DEVICE_PACKAGE_OVERLAYS := device/qcom/msm8916_32/overlay
+
 ifeq ($(TARGET_PRODUCT),msm8916_32)
 TARGET_USES_NQ_NFC := false
 endif
 
 # Add QC Video Enhancements flag
-TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
+TARGET_ENABLE_QC_AV_ENHANCEMENTS := false
 
 # Enable features in video HAL that can compile only on this platform
 TARGET_USES_MEDIA_EXTENSIONS := true
@@ -41,9 +46,13 @@ PRODUCT_DEVICE := msm8916_32
 # font rendering engine feature switch
 -include $(QCPATH)/common/config/rendering-engine.mk
 ifneq (,$(strip $(wildcard $(PRODUCT_RENDERING_ENGINE_REVLIB))))
-    MULTI_LANG_ENGINE := REVERIE
+    #MULTI_LANG_ENGINE := REVERIE
 #   MULTI_LANG_ZAWGYI := REVERIE
 endif
+
+# add vendor manifest file
+PRODUCT_COPY_FILES += \
+    device/qcom/msm8916_32/manifest.xml:$(TARGET_COPY_OUT_VENDOR)/manifest.xml
 
 PRODUCT_BOOT_JARS += \
            qcom.fmradio
@@ -85,11 +94,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml
 
-#fstab.qcom
-PRODUCT_PACKAGES += fstab.qcom
-
--include $(TOPDIR)hardware/qcom/audio/configs/msm8916/msm8916.mk
-
 PRODUCT_PACKAGES += \
     libqcomvisualizer \
     libqcompostprocbundle \
@@ -111,13 +115,17 @@ PRODUCT_COPY_FILES += \
 
 #wlan driver
 PRODUCT_COPY_FILES += \
-    device/qcom/msm8916_32/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
+    device/qcom/msm8916_32/WCNSS_qcom_cfg.ini:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/WCNSS_qcom_cfg.ini \
     device/qcom/msm8916_32/WCNSS_wlan_dictionary.dat:persist/WCNSS_wlan_dictionary.dat \
     device/qcom/msm8916_32/WCNSS_qcom_wlan_nv.bin:persist/WCNSS_qcom_wlan_nv.bin
 
 PRODUCT_PACKAGES += \
     wpa_supplicant_overlay.conf \
     p2p_supplicant_overlay.conf
+#for wlan
+   PRODUCT_PACKAGES += \
+       wificond \
+       wifilogd
 
 # MIDI feature
 PRODUCT_COPY_FILES += \
@@ -128,6 +136,29 @@ PRODUCT_PACKAGES += \
 AntHalService \
 libantradio \
 antradio_app
+
+# Display/Gralloc
+PRODUCT_PACKAGES += \
+    android.hardware.graphics.allocator@2.0-impl \
+    android.hardware.graphics.allocator@2.0-service \
+    android.hardware.graphics.mapper@2.0-impl \
+    android.hardware.graphics.composer@2.1-impl \
+    android.hardware.graphics.composer@2.1-service \
+    android.hardware.memtrack@1.0-impl \
+    android.hardware.memtrack@1.0-service \
+    android.hardware.light@2.0-impl \
+    android.hardware.light@2.0-service \
+    android.hardware.configstore@1.0-service \
+    android.hardware.broadcastradio@1.0-impl
+
+#PRODUCT_FULL_TREBLE_OVERRIDE := true
+
+PRODUCT_VENDOR_MOVE_ENABLED := true
+
+# Vibrator
+PRODUCT_PACKAGES += \
+    android.hardware.vibrator@1.0-impl \
+    android.hardware.vibrator@1.0-service \
 
 #HBTP
 PRODUCT_PACKAGES += hbtp_daemon
@@ -153,14 +184,53 @@ PRODUCT_LOCALES += th_TH vi_VN tl_PH hi_IN ar_EG ru_RU tr_TR pt_BR bn_IN mr_IN t
 
 # When can normal compile this module,  need module owner enable below commands
 # Add the overlay path
-PRODUCT_PACKAGE_OVERLAYS := $(QCPATH)/qrdplus/Extension/res \
+#PRODUCT_PACKAGE_OVERLAYS := $(QCPATH)/qrdplus/Extension/res \
         $(QCPATH)/qrdplus/globalization/multi-language/res-overlay \
         $(PRODUCT_PACKAGE_OVERLAYS)
 
 # Sensor HAL conf file
 PRODUCT_COPY_FILES += \
-    device/qcom/msm8916_32/sensors/hals.conf:system/etc/sensors/hals.conf
+    device/qcom/msm8916_32/sensors/hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf
 
 #FEATURE_OPENGLES_EXTENSION_PACK support string config file
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.opengles.aep.xml:system/etc/permissions/android.hardware.opengles.aep.xml
+
+#Boot control HAL test app
+PRODUCT_PACKAGES_DEBUG += bootctl
+
+#Healthd packages
+PRODUCT_PACKAGES += android.hardware.health@1.0-impl \
+                    android.hardware.health@1.0-convert \
+                    android.hardware.health@1.0-service \
+                    libhealthd.msm
+#Supports verity
+PRODUCT_SUPPORTS_VERITY := false
+
+PRODUCT_PACKAGES += \
+    vendor.display.color@1.0-service
+
+# Fingerprint feature
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.fingerprint.xml:system/etc/permissions/android.hardware.fingerprint.xml \
+
+PRODUCT_PACKAGES += \
+    android.hardware.audio@2.0-service \
+    android.hardware.audio@2.0-impl \
+    android.hardware.audio.effect@2.0-impl \
+    android.hardware.soundtrigger@2.0-impl
+
+# Power
+PRODUCT_PACKAGES += \
+    android.hardware.power@1.0-service \
+    android.hardware.power@1.0-impl
+
+KMGK_USE_QTI_SERVICE := false
+#Enable KEYMASTER and GATEKEEPER HIDLs
+ifneq ($(KMGK_USE_QTI_SERVICE), true)
+  PRODUCT_PACKAGES += android.hardware.gatekeeper@1.0-impl \
+                      android.hardware.gatekeeper@1.0-service \
+                      android.hardware.keymaster@3.0-impl \
+                      android.hardware.keymaster@3.0-service
+endif
+
