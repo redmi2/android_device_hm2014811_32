@@ -24,9 +24,10 @@ PRODUCT_PACKAGES += \
     fs_config_files
 
 # media_profiles and media_codecs xmls for 8916
-ifeq ($(TARGET_ENABLE_QC_AV_ENHANCEMENTS), true)
+ifneq ($(TARGET_ENABLE_QC_AV_ENHANCEMENTS), true)
 PRODUCT_COPY_FILES += device/qcom/msm8916_32/media/media_profiles_8916.xml:system/etc/media_profiles.xml \
-                      device/qcom/msm8916_32/media/media_codecs_8916.xml:system/etc/media_codecs.xml \
+                      device/qcom/msm8916_32/media/media_profiles_8916.xml:system/vendor/etc/media_profiles.xml \
+                      device/qcom/msm8916_32/media/media_codecs_8916.xml:system/vendor/etc/media_codecs.xml \
                       device/qcom/msm8916_32/media/media_codecs_performance_8916_32.xml:system/etc/media_codecs_performance.xml \
                       device/qcom/msm8916_32/media/media_codecs_performance_8916_64_8939.xml:system/etc/media_codecs_performance_8939.xml \
                       device/qcom/msm8916_32/media/media_codecs_8939.xml:system/etc/media_codecs_8939.xml \
