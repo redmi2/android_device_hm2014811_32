@@ -4,7 +4,7 @@ TARGET_USES_QCOM_BSP := false
 
 TARGET_USES_HWC2 := true
 
-#DEVICE_PACKAGE_OVERLAYS := device/qcom/msm8916_32/overlay
+DEVICE_PACKAGE_OVERLAYS := device/qcom/msm8916_32/overlay
 
 ifeq ($(TARGET_PRODUCT),msm8916_32)
 TARGET_USES_NQ_NFC := false
