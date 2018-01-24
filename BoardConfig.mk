@@ -149,9 +149,6 @@ USE_SENSOR_MULTI_HAL := true
 
 FEATURE_QCRIL_UIM_SAP_SERVER_MODE := true
 
-# Control flag between KM versions
-TARGET_HW_KEYMASTER_V03 := true
-
 #Enable peripheral manager
 TARGET_PER_MGR_ENABLED := true
 
