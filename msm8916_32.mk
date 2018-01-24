@@ -232,6 +232,9 @@ PRODUCT_PACKAGES += android.hardware.camera.provider@2.4-impl
 # Enable binderized camera HAL
 PRODUCT_PACKAGES += android.hardware.camera.provider@2.4-service
 
+# TARGET_DISABLE_TA_HEAP for 8916_32
+TARGET_DISABLE_TA_HEAP := true
+
 KMGK_USE_QTI_SERVICE := false
 #Enable Google KEYMASTER and GATEKEEPER HIDLs
 ifneq ($(KMGK_USE_QTI_SERVICE), true)
