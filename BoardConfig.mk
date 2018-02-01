@@ -132,6 +132,8 @@ TARGET_BOARD_SUFFIX := _32
 #MALLOC_IMPL := dlmalloc
 MALLOC_SVELTE := true
 
+TARGET_VB_NOT_ENABLED := true
+
 #Enable HW based full disk encryption
 #TARGET_HW_DISK_ENCRYPTION := true
 
